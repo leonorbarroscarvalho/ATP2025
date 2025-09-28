@@ -1,0 +1,39 @@
+def jogo_fosforos():
+    fosforos = 21
+
+    # perguntar quem começa
+    inicio = input("Quem começa? 'user' ou 'comp'? : ")
+    jogador = inicio
+
+    while fosforos > 1:
+        print("Fósforos restantes:", fosforos)
+
+        if jogador == "user":
+            # Jogada do utilizador
+            jogada = int(input("Quantos fósforos tiras (1-4)? "))
+
+            if jogada < 1 or jogada > 4 or jogada >= fosforos:
+                print("Jogada inválida.")
+                continue  # volta ao início do while
+
+            if fosforos - jogada == 1:
+                print("Ficaste com 1 fósforo. Perdes!")
+                return
+
+            fosforos = fosforos - jogada
+            jogador = "comp"
+
+        elif jogador == "comp":
+            # Jogada do computador (estratégia simples: tenta deixar múltiplos de 5)
+            jogada = (fosforos - 1) % 5
+            if jogada == 0:
+                jogada = 1
+
+            print("Computador tira", jogada, "fósforo(s).")
+
+            if fosforos - jogada == 1:
+                print("Computador deixou 1 fósforo. Ganhaste!")
+                return
+
+            fosforos = fosforos - jogada
+            jogador = "user"
